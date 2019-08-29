@@ -14,15 +14,13 @@ class MouseListener {
 
 
     public static void main(String[] args) {
+
         final int[] coins = {0};
         final int[] factory = {0};
         final int[] plantation = {0};
         for (; ; ) {
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+
             JFrame frame = new JFrame("Coin Clicker");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             //addKeyListener(this);
@@ -31,9 +29,9 @@ class MouseListener {
 
 
 
-            Component textArea = new TextArea(String.valueOf(coins[0]));
-            Component textArea1 = new TextArea(String.valueOf(factory[0]));
-            Component textArea2 = new TextArea(String.valueOf(plantation[0]));
+            Component textArea = new TextArea(String.valueOf("Coins: "+coins[0]));
+            Component textArea1 = new TextArea(String.valueOf("Factories: "+factory[0]+"\n"+"You can buy a factory for 25 coins."+"\n"+"It produces 2 coins per second."));
+            Component textArea2 = new TextArea(String.valueOf("Plantations: "+plantation[0]+"\n"+"You can buy a plantation for 1000 coins and 50 factories."+"\n"+"It produces 3 factories per second."));
 
 // Create frame with specific title
 
@@ -49,7 +47,7 @@ class MouseListener {
                 TextArea source = (TextArea) evt.getSource();
                 //TextArea source1 = (TextArea) evt.getSource();
                 coins[0]++;
-                source.setText(String.valueOf(coins[0]));
+                source.setText(String.valueOf("Coins: "+coins[0]));
                 //source1.setText(String.valueOf(coins[0]));
 
             }
@@ -67,7 +65,7 @@ class MouseListener {
                 coins[0] -= 25;
                 factory[0] += 1;
                 System.out.println(factory[0] + " factroies");
-                source1.setText(String.valueOf(factory[0]));
+                source1.setText(String.valueOf("Factories: "+factory[0]));
 
                 }
 
@@ -87,7 +85,7 @@ class MouseListener {
                         factory[0] -= 50;
                         plantation[0]++;
                         //System.out.println(factory[0] + " factroies");
-                        source2.setText(String.valueOf(plantation[0]));
+                        source2.setText("Plantations: "+String.valueOf(plantation[0]));
 
                     }
 
@@ -127,9 +125,9 @@ class MouseListener {
             frame.add(textArea2, BorderLayout.EAST);
             coins[0] += factory[0]*2;
             factory[0] += plantation[0]*3;
-            System.out.println("Coins: "+coins[0]);
-            System.out.println("Factories: "+factory[0]);
-            System.out.println("Plantations: "+plantation[0]);
+//            System.out.println("Coins: "+coins[0]);
+//            System.out.println("Factories: "+factory[0]);
+//            System.out.println("Plantations: "+plantation[0]);
 
 
 // Show the frame
@@ -141,7 +139,13 @@ class MouseListener {
             frame.setSize(width, height);
 
             frame.setVisible(true);
-
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            //frame.setVisible(false); //you can't see me!
+            frame.dispose();
 
         }
     }
