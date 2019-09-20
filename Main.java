@@ -1,8 +1,5 @@
 import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Frame;
-import java.awt.TextArea;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent;
@@ -14,58 +11,56 @@ class MouseListener {
 
 
     public static void main(String[] args) {
-
+        JFrame frame = new JFrame("Coin Clicker");
         final int[] coins = {0};
         final int[] factory = {0};
         final int[] plantation = {0};
+
+        Component Button = new Button(String.valueOf("Coins: "+coins[0]+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nf"));
+        Component Button1 = new Button(String.valueOf("Factories: "+factory[0]+"\n"+"You can buy a factory for 25 coins."+"\n"+"It produces 2 coins per second."));
+        Component Button2 = new Button(String.valueOf("Plantations: "+plantation[0]+"\n"+"You can buy a plantation for 1000 coins and 50 factories."+"\n"+"It produces 3 factories per second."));
+        frame.add(Button, BorderLayout.NORTH);
+        frame.add(Button1, BorderLayout.CENTER);
+        frame.add(Button2, BorderLayout.SOUTH);
+        frame.setSize(600, 600);
+
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         for (; ; ) {
 
-
-            JFrame frame = new JFrame("Coin Clicker");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            //addKeyListener(this);
-
-// Create a component to add to the frame; in this case a text area with sample text
+            ((java.awt.Button) Button).setLabel(String.valueOf("Coins: "+coins[0]));
+            ((java.awt.Button) Button1).setLabel("Factories: "+factory[0]);
+            ((java.awt.Button) Button2).setLabel("Plantations: "+String.valueOf(plantation[0]));
 
 
-
-            Component textArea = new TextArea(String.valueOf("Coins: "+coins[0]));
-            Component textArea1 = new TextArea(String.valueOf("Factories: "+factory[0]+"\n"+"You can buy a factory for 25 coins."+"\n"+"It produces 2 coins per second."));
-            Component textArea2 = new TextArea(String.valueOf("Plantations: "+plantation[0]+"\n"+"You can buy a plantation for 1000 coins and 50 factories."+"\n"+"It produces 3 factories per second."));
-
-// Create frame with specific title
-
-
-
-// Add a mouse listener to capture click events
-
-        textArea.addMouseListener(new MouseAdapter() {
+        Button.addMouseListener(new MouseAdapter() {
             //final int[] coins = {0};
 
-            public void mouseClicked(MouseEvent evt) {
+            public void mouseReleased(MouseEvent evt) {
 
-                TextArea source = (TextArea) evt.getSource();
-                //TextArea source1 = (TextArea) evt.getSource();
-                coins[0]++;
-                source.setText(String.valueOf("Coins: "+coins[0]));
+                Button source = (Button) evt.getSource();
+                //Button source1 = (Button) evt.getSource();
+                coins[0]+=1;
+                source.setLabel(String.valueOf("Coins: "+coins[0]));
+                source.repaint();
                 //source1.setText(String.valueOf(coins[0]));
 
             }
 
 
         });
-        textArea1.addMouseListener(new MouseAdapter() {
+        Button1.addMouseListener(new MouseAdapter() {
             //final int[] factory = {0};
 
-            public void mouseClicked(MouseEvent evt) {
+            public void mouseReleased(MouseEvent evt) {
 
-                TextArea source1 = (TextArea) evt.getSource();
+                Button source1 = (Button) evt.getSource();
                 if (coins[0] >= 25) {
 
                 coins[0] -= 25;
                 factory[0] += 1;
-                System.out.println(factory[0] + " factroies");
-                source1.setText(String.valueOf("Factories: "+factory[0]));
+                //System.out.println(factory[0] + " factroies");
+                source1.setLabel(String.valueOf("Factories: "+factory[0]));
 
                 }
 
@@ -73,19 +68,19 @@ class MouseListener {
 
 
         });
-            textArea2.addMouseListener(new MouseAdapter() {
+            Button2.addMouseListener(new MouseAdapter() {
                 //final int[] factory = {0};
 
                 public void mouseClicked(MouseEvent evt) {
 
-                    TextArea source2 = (TextArea) evt.getSource();
+                    Button source2 = (Button) evt.getSource();
                     if (factory[0] >= 50 && coins[0] >= 1000) {
 
                         coins[0] -= 1000;
                         factory[0] -= 50;
                         plantation[0]++;
                         //System.out.println(factory[0] + " factroies");
-                        source2.setText("Plantations: "+String.valueOf(plantation[0]));
+                        source2.setLabel("Plantations: "+String.valueOf(plantation[0]));
 
                     }
 
@@ -93,62 +88,27 @@ class MouseListener {
 
 
             });
-        textArea.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-//                if (e.getKeyCode() == KeyEvent.VK_F && coins[0] >= 25) {
-//
-//                    coins[0]-=25;
-//                    factory[0]++;
-//                    System.out.println(factory[0]+" factroies");
-//                    factories.setText(String.valueOf(factory[0]));
-//
-//                }
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
-
-// Add the components to the frame; by default, the frame has a border layout
-
-            frame.add(textArea, BorderLayout.NORTH);
-            frame.add(textArea1, BorderLayout.WEST);
-            frame.add(textArea2, BorderLayout.EAST);
             coins[0] += factory[0]*2;
             factory[0] += plantation[0]*3;
-//            System.out.println("Coins: "+coins[0]);
-//            System.out.println("Factories: "+factory[0]);
-//            System.out.println("Plantations: "+plantation[0]);
 
-
-// Show the frame
-
-            int width = 1000;
-
-            int height = 1000;
-
-            frame.setSize(width, height);
-
-            frame.setVisible(true);
+//            ((java.awt.Button) Button).setLabel(String.valueOf("Coins: "+coins[0]));
+//            ((java.awt.Button) Button1).setLabel("Factories: "+factory[0]);
+//            ((java.awt.Button) Button2).setLabel("Plantations: "+String.valueOf(plantation[0]));
+//            //System.out.println(coins[0]+" "+factory[0]+" "+plantation[0]);
+//            //frame.dispose();
+////            frame.remove(Button);
+////            frame.remove(Button1);
+////            frame.remove(Button2);
+//            Button.repaint();
+//            Button1.repaint();
+//            Button2.repaint();
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            //frame.setVisible(false); //you can't see me!
-            frame.dispose();
+            
 
         }
     }
-    // }
-
 }
