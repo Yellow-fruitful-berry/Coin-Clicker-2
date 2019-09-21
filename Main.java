@@ -8,79 +8,71 @@ import java.util.concurrent.TimeUnit;
 
 
 class MouseListener {
-
+    public static int coin = 0;
+    public static int factory = 0;
+    public static int plantation = 0;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Coin Clicker");
-        final int[] coins = {0};
-        final int[] factory = {0};
-        final int[] plantation = {0};
+//        final int[] coins = {0};
+//        final int[] factory = {0};
+//        final int[] plantation = {0};
 
-        Component Button = new Button(String.valueOf("Coins: "+coins[0]+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nf"));
-        Component Button1 = new Button(String.valueOf("Factories: "+factory[0]+"\n"+"You can buy a factory for 25 coins."+"\n"+"It produces 2 coins per second."));
-        Component Button2 = new Button(String.valueOf("Plantations: "+plantation[0]+"\n"+"You can buy a plantation for 1000 coins and 50 factories."+"\n"+"It produces 3 factories per second."));
-        frame.add(Button, BorderLayout.NORTH);
-        frame.add(Button1, BorderLayout.CENTER);
-        frame.add(Button2, BorderLayout.SOUTH);
-        frame.setSize(600, 600);
+
+        Component Button = new Button("Coins: 0");
+        Component Button1 = new Button("Factories: 0");
+        Component Button2 = new Button("Plantations: 0");
+        frame.add(Button);
+        frame.add(Button1);
+        frame.add(Button2);
+        frame.setSize(1000, 1000);
+        Button.setBounds(0, 0, 600, 200);
+        Button1.setBounds(0, 200, 600, 200);
+        Button2.setBounds(0, 400, 600, 200);
+
 
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         for (; ; ) {
 
-            ((java.awt.Button) Button).setLabel(String.valueOf("Coins: "+coins[0]));
-            ((java.awt.Button) Button1).setLabel("Factories: "+factory[0]);
-            ((java.awt.Button) Button2).setLabel("Plantations: "+String.valueOf(plantation[0]));
+
+            ((java.awt.Button) Button).setLabel("Coins: " + String.valueOf(coin));
+            ((java.awt.Button) Button1).setLabel("Factories: " + String.valueOf(factory));
+            ((java.awt.Button) Button2).setLabel("Plantations: " + String.valueOf(plantation));
 
 
-        Button.addMouseListener(new MouseAdapter() {
-            //final int[] coins = {0};
-
-            public void mouseReleased(MouseEvent evt) {
-
-                Button source = (Button) evt.getSource();
-                //Button source1 = (Button) evt.getSource();
-                coins[0]+=1;
-                source.setLabel(String.valueOf("Coins: "+coins[0]));
-                source.repaint();
-                //source1.setText(String.valueOf(coins[0]));
-
-            }
-
-
-        });
-        Button1.addMouseListener(new MouseAdapter() {
-            //final int[] factory = {0};
-
-            public void mouseReleased(MouseEvent evt) {
-
-                Button source1 = (Button) evt.getSource();
-                if (coins[0] >= 25) {
-
-                coins[0] -= 25;
-                factory[0] += 1;
-                //System.out.println(factory[0] + " factroies");
-                source1.setLabel(String.valueOf("Factories: "+factory[0]));
-
-                }
-
-            }
-
-
-        });
-            Button2.addMouseListener(new MouseAdapter() {
-                //final int[] factory = {0};
+            Button.addMouseListener(new MouseAdapter() {
+                //final int[] coins = {0};
 
                 public void mouseClicked(MouseEvent evt) {
 
-                    Button source2 = (Button) evt.getSource();
-                    if (factory[0] >= 50 && coins[0] >= 1000) {
+                    Button source = (Button) evt.getSource();
+                    //Button source1 = (Button) evt.getSource();
+                    //coin = coin + 1;
 
-                        coins[0] -= 1000;
-                        factory[0] -= 50;
-                        plantation[0]++;
-                        //System.out.println(factory[0] + " factroies");
-                        source2.setLabel("Plantations: "+String.valueOf(plantation[0]));
+                    coin++;
+                    //source.setLabel("Coins: "+String.valueOf(coin));
+                    source.setLabel(String.valueOf(coin));
+                    source.repaint();
+                    //source1.setText(String.valueOf(coin));
+
+                }
+
+
+            });
+            Button1.addMouseListener(new MouseAdapter() {
+                //final int[] factory = {0};
+
+                public void mouseReleased(MouseEvent evt) {
+
+                    Button source1 = (Button) evt.getSource();
+
+                    if (coin >= 25) {
+
+                        coin -= 25;
+                        factory += 1;
+                        //System.out.println(factory + " factroies");
+                        source1.setLabel(String.valueOf("Factories: " + factory));
 
                     }
 
@@ -88,13 +80,32 @@ class MouseListener {
 
 
             });
-            coins[0] += factory[0]*2;
-            factory[0] += plantation[0]*3;
+            Button2.addMouseListener(new MouseAdapter() {
+                //final int[] factory = {0};
 
-//            ((java.awt.Button) Button).setLabel(String.valueOf("Coins: "+coins[0]));
-//            ((java.awt.Button) Button1).setLabel("Factories: "+factory[0]);
-//            ((java.awt.Button) Button2).setLabel("Plantations: "+String.valueOf(plantation[0]));
-//            //System.out.println(coins[0]+" "+factory[0]+" "+plantation[0]);
+                public void mouseClicked(MouseEvent evt) {
+                    Button source2 = (Button) evt.getSource();
+                    if (factory >= 50 && coin >= 1000) {
+
+                        coin -= 1000;
+                        factory -= 50;
+                        plantation++;
+                        //System.out.println(factory + " factroies");
+                        source2.setLabel("Plantations: " + String.valueOf(plantation));
+
+                    }
+
+                }
+
+
+            });
+//            coin += factory * 2;
+//            factory += plantation * 3;
+
+//            ((java.awt.Button) Button).setLabel(String.valueOf("Coins: "+coin));
+//            ((java.awt.Button) Button1).setLabel("Factories: "+factory);
+//            ((java.awt.Button) Button2).setLabel("Plantations: "+String.valueOf(plantation));
+//            //System.out.println(coin+" "+factory+" "+plantation);
 //            //frame.dispose();
 ////            frame.remove(Button);
 ////            frame.remove(Button1);
@@ -107,7 +118,7 @@ class MouseListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
+
 
         }
     }
